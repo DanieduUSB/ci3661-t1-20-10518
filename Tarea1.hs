@@ -82,13 +82,18 @@ mayorYMenor (h:(h2:tl))
 -- A3
 leerHora :: String -> Either String (Int, Int)
 leerHora [h1, h2, ':', m1, m2]
-  | not (isDigit h1) = Left "formato inválido"
-  | not (isDigit h2) = Left "formato inválido"
-  | not (isDigit m1) = Left "formato inválido"
-  | not (isDigit m2) = Left "formato inválido"
-  | ((10*(digitToInt h1)) + (digitToInt h2)) > 23 = Left "hora fuera de rango"
-  | ((10*(digitToInt m1)) + (digitToInt m2)) > 59 = Left "minutos fuera de rango"
-  | otherwise = Right ((10*(digitToInt h1)) + (digitToInt h2), (10*(digitToInt m1)) + (digitToInt m2))
+  | not (isDigit h1)  = Left invalidFormat
+  | not (isDigit h2)  = Left invalidFormat
+  | not (isDigit m1)  = Left invalidFormat
+  | not (isDigit m2)  = Left invalidFormat
+  | hour > 23         = Left invalidHour
+  | min > 59          = Left invalidMin
+  | otherwise         = Right (hour, min)
+  where hour            = (10*(digitToInt h1)) + (digitToInt h2)
+        min             = (10*(digitToInt m1)) + (digitToInt m2)
+        invalidFormat   = "formato inválido"
+        invalidHour     = "hora fuera de rango"
+        invalidMin      = "minutos fuera de rango"
 
 leerHora _ = Left "formato inválido"
 
