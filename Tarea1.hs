@@ -107,7 +107,7 @@ promedioSobreUmbral :: Double -> [Double] -> Maybe Double
 promedioSobreUmbral num lst
   | snd pair == 0 = Nothing
   | otherwise     = Just ((fst pair) / (snd pair))
-  where pair = foldl (acumTuple) (0.0, 0.0) lst
+  where pair = foldl (acumTuple num) (0.0, 0.0) lst
 -- Queda implementar que solo tome los mayores a 'num' para el promedio
 
 -- B2
@@ -172,5 +172,7 @@ eitherToPair (Left _)   = (0, 0)
 
 
 -- acumTuple
-acumTuple :: (Double, Double) -> Double -> (Double, Double)
-acumTuple (sum, n) num = (sum + num, n + 1)
+acumTuple :: Double -> (Double, Double) -> Double -> (Double, Double)
+acumTuple cond (sum, n) num
+  | num > cond  = (sum + num, n + 1)
+  | otherwise   = (sum, n)
