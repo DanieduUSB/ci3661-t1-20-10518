@@ -175,9 +175,9 @@ menorDeTres a b c = min a (min b c)
 -}
 
 -- fixPair
--- En esta función no entra 'Nothing', el no considerarlo es apropósito
 fixPair :: Maybe (a, a) -> (a, a)
-fixPair (Just p) = p
+fixPair (Just p)  = p
+fixPair Nothing   = undefined
 
 
 -- isString
