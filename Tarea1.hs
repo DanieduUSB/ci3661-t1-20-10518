@@ -104,7 +104,11 @@ duracion t1 t2
 
 -- B1
 promedioSobreUmbral :: Double -> [Double] -> Maybe Double
-promedioSobreUmbral = undefined
+promedioSobreUmbral num lst
+  | snd pair == 0 = Nothing
+  | otherwise     = Just ((fst pair) / (snd pair))
+  where pair = foldl (acumTuple) (0.0, 0.0) lst
+-- Queda implementar que solo tome los mayores a 'num' para el promedio
 
 -- B2
 movimientosCaballo :: (Int, Int) -> [(Int, Int)]
@@ -165,3 +169,8 @@ eitherToStr (Right _)   = ""
 eitherToPair :: Either String (Int, Int) -> (Int, Int)
 eitherToPair (Right p)  = p
 eitherToPair (Left _)   = (0, 0)
+
+
+-- acumTuple
+acumTuple :: (Double, Double) -> Double -> (Double, Double)
+acumTuple (sum, n) num = (sum + num, n + 1)
