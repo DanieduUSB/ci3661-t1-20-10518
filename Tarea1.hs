@@ -58,8 +58,8 @@ esPalindromo (h:word)
 mayorYMenor :: Ord a => [a] -> Maybe (a, a)
 mayorYMenor [] = Nothing
 mayorYMenor (h:tl)
-  | esVacio tl = Just (h, h)
-  | otherwise = Just (max h maxNum, min h minNum)
+  | esVacio tl  = Just (h, h)
+  | otherwise   = Just (max h maxNum, min h minNum)
   where values = fixPair (mayorYMenor tl)
         maxNum = fst values
         minNum = snd values
