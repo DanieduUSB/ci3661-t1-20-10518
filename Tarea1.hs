@@ -51,9 +51,29 @@ esPalindromo (h:word)
 -- A2
 -- Explica aquí, en dos o tres líneas, por qué tu solución recorre la
 -- lista una sola vez:
+-- En las listas de mas de dos elementos, compara el primer, segundo y
+-- tercer elemento entre ellos, y coloca en las posiciones 1 y 2 el max
+-- y min entre los tres respectivamente, luego descarta el tercer elemento
+
+
+-- COMENTARIO EXTRA: Me parece que sería ligeramente mejor usar mayorYMenor
+-- como una llamada inicial la cual establezca en las posiciones 1 y 2 de la
+-- lista el max y min, respectivamente, de manera que en otra función ya
+-- recursiva se coloque en la primera posición 'max h (head tl)' y en la
+-- segunda 'min h2 (head tl)', reduciendo así la cantidad de comparaciones.
+-- No lo hice con el fin de respetar que en mayorYMenor esté la funcionalidad
+-- principal del programa
 --
 mayorYMenor :: Ord a => [a] -> Maybe (a, a)
-mayorYMenor = undefined
+-- Caso base: Lista vacía
+mayorYMenor [] = Nothing
+-- Caso base: Un solo elemento en la lista (Es mas un caso particular que un caso base)
+mayorYMenor (h:[]) = Just (h, h)
+-- Caso resursivo: Al menos dos elementos en la lista, h y h2
+mayorYMenor (h:(h2:tl))
+  | esVacio tl  = Just (max h h2, min h h2)
+  | otherwise   = mayorYMenor ( (mayorDeTres h h2 (head tl)) : ( (menorDeTres h h2 (head tl)) : (tail tl) ) )
+-- IMPORTANTE: ARREGLAR WARNINGS EN EL CASO GENERAL
 
 -- A3
 leerHora :: String -> Either String (Int, Int)
@@ -97,3 +117,13 @@ miFoldl = undefined
 esVacio :: [a] -> Bool
 esVacio []  = True
 esVacio _   = False
+
+
+-- mayorDeTres
+mayorDeTres :: Ord a => a -> a -> a -> a
+mayorDeTres a b c = max a (max b c)
+
+
+-- menorDeTres
+menorDeTres :: Ord a => a -> a -> a -> a
+menorDeTres a b c = min a (min b c)
