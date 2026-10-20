@@ -1,0 +1,5 @@
+PruebasTarea1.hs
+*.o
+*.hi
+*.exe
+Makefile
