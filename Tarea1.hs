@@ -73,11 +73,24 @@ mayorYMenor (h:[]) = Just (h, h)
 mayorYMenor (h:(h2:tl))
   | esVacio tl  = Just (max h h2, min h h2)
   | otherwise   = mayorYMenor ( (mayorDeTres h h2 (head tl)) : ( (menorDeTres h h2 (head tl)) : (tail tl) ) )
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 -- IMPORTANTE: ARREGLAR WARNINGS EN EL CASO GENERAL
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 -- A3
 leerHora :: String -> Either String (Int, Int)
-leerHora = undefined
+leerHora [h1, h2, ':', m1, m2]
+  | not (isDigit h1) = Left "formato inválido"
+  | not (isDigit h2) = Left "formato inválido"
+  | not (isDigit m1) = Left "formato inválido"
+  | not (isDigit m2) = Left "formato inválido"
+  | ((10*(digitToInt h1)) + (digitToInt h2)) > 23 = Left "hora fuera de rango"
+  | ((10*(digitToInt m1)) + (digitToInt m2)) > 59 = Left "minutos fuera de rango"
+  | otherwise = Right ((10*(digitToInt h1)) + (digitToInt h2), (10*(digitToInt m1)) + (digitToInt m2))
+
+leerHora _ = Left "formato inválido"
 
 duracion :: String -> String -> Either String Int
 duracion = undefined
