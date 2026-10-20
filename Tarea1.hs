@@ -1,8 +1,8 @@
 -- =====================================================================
 --  CI-3661 — Tarea 1 (Haskell) — Septiembre–Diciembre 2026
 --
---  Nombre:
---  Carnet:
+--  Nombre: Daniel Quijada
+--  Carnet: 20-10518
 --
 --  Declaración de uso de herramientas de IA (obligatoria, ver enunciado):
 --
@@ -34,7 +34,19 @@ import Data.Char (isAlphaNum, isDigit, toLower, digitToInt)
 
 -- A1
 esPalindromo :: String -> Bool
-esPalindromo = undefined
+esPalindromo [] = True
+esPalindromo (h:word)
+  -- Si el primer caracter es un espacio en blanco, se ignora y se compara el resto del String
+  | h == ' '          = esPalindromo word
+  -- Si el resto del String es vacío, 'h' es un caracter central, por lo tanto, es un palíndromo
+  | esVacio word      = True
+  -- Si el último caracter es un espacio en blanco, se ignora y se compara el resto del String
+  | last word == ' '  = esPalindromo (h : init word)
+  -- Si el primer y último caracter son iguales, se evalúan los caracteres en el medio
+  | h == last word    = esPalindromo (init word)
+  -- En caso contrario, no es palíndromo
+  | otherwise         = False
+  
 
 -- A2
 -- Explica aquí, en dos o tres líneas, por qué tu solución recorre la
@@ -76,3 +88,12 @@ miFilter = undefined
 
 miFoldl :: (b -> a -> b) -> b -> [a] -> b
 miFoldl = undefined
+
+-- =====================================================================
+-- Funciones Auxiliares
+-- =====================================================================
+
+-- esVacio
+esVacio :: [a] -> Bool
+esVacio []  = True
+esVacio _   = False
