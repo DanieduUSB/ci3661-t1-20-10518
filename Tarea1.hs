@@ -51,6 +51,22 @@ esPalindromo (h:word)
 -- A2
 -- Explica aquí, en dos o tres líneas, por qué tu solución recorre la
 -- lista una sola vez:
+-- En el caso recursivo calcula el (max, min) de la cola de la lista,
+-- y compara estos valores con la cabeza. El cálculo en la cola se hace
+-- una sola vez y de acá se hacen las dos comparaciones necesarias
+--
+mayorYMenor :: Ord a => [a] -> Maybe (a, a)
+mayorYMenor [] = Nothing
+mayorYMenor (h:tl)
+  | esVacio tl = Just (h, h)
+  | otherwise = Just (max h maxNum, min h minNum)
+  where values = fixPair (mayorYMenor tl)
+        maxNum = fst values
+        minNum = snd values
+
+
+{-
+Implementación #1 de A2
 -- En las listas de mas de dos elementos, compara el primer, segundo y
 -- tercer elemento entre ellos, y coloca en las posiciones 1 y 2 el max
 -- y min entre los tres respectivamente, luego descarta el tercer elemento
@@ -78,6 +94,7 @@ mayorYMenor (h:(h2:tl))
 -- IMPORTANTE: ARREGLAR WARNINGS EN EL CASO GENERAL
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-}
 
 -- A3
 leerHora :: String -> Either String (Int, Int)
@@ -145,3 +162,9 @@ mayorDeTres a b c = max a (max b c)
 -- menorDeTres
 menorDeTres :: Ord a => a -> a -> a -> a
 menorDeTres a b c = min a (min b c)
+
+
+-- fixPair
+-- En esta función no entra 'Nothing', el no considerarlo es apropósito
+fixPair :: Maybe (a, a) -> (a, a)
+fixPair (Just p) = p
