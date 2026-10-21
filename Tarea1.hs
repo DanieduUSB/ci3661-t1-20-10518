@@ -141,7 +141,7 @@ miMap :: (a -> b) -> [a] -> [b]
 miMap f lst = foldr (mapConcatVal f) [] lst
 
 miFilter :: (a -> Bool) -> [a] -> [a]
-miFilter = undefined
+miFilter f lst = foldr (filterConcatVal f) [] lst
 
 miFoldl :: (b -> a -> b) -> b -> [a] -> b
 miFoldl = undefined
@@ -149,6 +149,12 @@ miFoldl = undefined
 -- Auxiliar: mapConcatVal
 mapConcatVal :: (a -> b) -> a -> [b] -> [b]
 mapConcatVal f val lst = f val : lst
+
+-- Auxiliar: filterConcatVal
+filterConcatVal :: (a -> Bool) -> a -> [a] -> [a]
+filterConcatVal f val lst
+  | f val     = val : lst
+  | otherwise = lst
 
 
 -- =====================================================================
