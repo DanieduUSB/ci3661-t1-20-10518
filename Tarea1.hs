@@ -138,17 +138,13 @@ enDosSaltos = undefined
 
 -- B3
 miMap :: (a -> b) -> [a] -> [b]
-miMap f lst = foldr (mapConcatVal f) [] lst
+miMap f lst = foldr (\val blst -> f val : blst) [] lst
 
 miFilter :: (a -> Bool) -> [a] -> [a]
 miFilter f lst = foldr (filterConcatVal f) [] lst
 
 miFoldl :: (b -> a -> b) -> b -> [a] -> b
 miFoldl = undefined
-
--- Auxiliar: mapConcatVal
-mapConcatVal :: (a -> b) -> a -> [b] -> [b]
-mapConcatVal f val lst = f val : lst
 
 -- Auxiliar: filterConcatVal
 filterConcatVal :: (a -> Bool) -> a -> [a] -> [a]
