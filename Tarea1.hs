@@ -84,17 +84,14 @@ leerHora [h1, h2, ':', m1, m2]
 leerHora _ = Left "formato inválido"
 
 duracion :: String -> String -> Either String Int
-duracion t1 t2
-  | isString t1Lect = Left (eitherToStr t1Lect)
-  | isString t2Lect = Left (eitherToStr t2Lect)
-  | t2Min < t1Min   = Right (1440 + t2Min - t1Min)
-  | otherwise       = Right (t2Min - t1Min)
-  where t1Lect  = leerHora t1
-        t2Lect  = leerHora t2
-        t1Pair  = eitherToPair t1Lect
-        t2Pair  = eitherToPair t2Lect
-        t1Min   = (60*(fst t1Pair)) + (snd t1Pair)
-        t2Min   = (60*(fst t2Pair)) + (snd t2Pair)
+duracion t1 t2 =
+  case leerHora t1 of
+    Left str1      -> Left str1
+    Right (h1, m1) -> case leerHora t2 of
+                        Left str2               -> Left str2
+                        Right (h2, m2) 
+                          | 60*h2+m2 < 60*h1+m1 -> Right (1440 + (60*h2+m2) - (60*h1+m1))
+                          | otherwise           -> Right ((60*h2+m2) - (60*h1+m1))
 
 -- =====================================================================
 -- Parte B: orden superior.
@@ -146,39 +143,11 @@ esVacio :: [a] -> Bool
 esVacio []  = True
 esVacio _   = False
 
-{-
--- mayorDeTres
-mayorDeTres :: Ord a => a -> a -> a -> a
-mayorDeTres a b c = max a (max b c)
-
-
--- menorDeTres
-menorDeTres :: Ord a => a -> a -> a -> a
-menorDeTres a b c = min a (min b c)
--}
 
 -- fixPair
 fixPair :: Maybe (a, a) -> (a, a)
 fixPair (Just p)  = p
 fixPair Nothing   = undefined
-
-
--- isString
-isString :: Either String (Int, Int) -> Bool
-isString (Left _)  = True
-isString (Right _) = False
-
-
--- eitherToStr
-eitherToStr :: Either String (Int, Int) -> String
-eitherToStr (Left str)  = str
-eitherToStr (Right _)   = ""
-
-
--- eitherToPair
-eitherToPair :: Either String (Int, Int) -> (Int, Int)
-eitherToPair (Right p)  = p
-eitherToPair (Left _)   = (0, 0)
 
 
 -- acumTuple
