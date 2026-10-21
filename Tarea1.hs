@@ -126,7 +126,7 @@ enDosSaltos = undefined
 
 -- B3
 miMap :: (a -> b) -> [a] -> [b]
-miMap = undefined
+miMap f lst = foldr (auxB3 f) [] lst
 
 miFilter :: (a -> Bool) -> [a] -> [a]
 miFilter = undefined
@@ -155,3 +155,8 @@ acumTuple :: Double -> (Double, Double) -> Double -> (Double, Double)
 acumTuple cond (sum, n) num
   | num > cond  = (sum + num, n + 1)
   | otherwise   = (sum, n)
+
+
+-- auxB3
+auxB3 :: (a -> b) -> a -> [b] -> [b]
+auxB3 f val lst = f val : lst
