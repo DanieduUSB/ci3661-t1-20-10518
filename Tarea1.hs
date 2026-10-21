@@ -144,7 +144,7 @@ miFilter :: (a -> Bool) -> [a] -> [a]
 miFilter f = foldr (filterConcatVal f) []
 
 miFoldl :: (b -> a -> b) -> b -> [a] -> b
-miFoldl f z x = foldr (\va fb vb -> fb (f vb va)) (\vb -> vb) (x) z
+miFoldl f z x = foldr (\va fb vb -> fb (f vb va)) (\vb -> vb) x z
 
 -- Auxiliar: filterConcatVal
 filterConcatVal :: (a -> Bool) -> a -> [a] -> [a]

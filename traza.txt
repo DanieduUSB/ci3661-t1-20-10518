@@ -18,6 +18,22 @@ foldl (-) 0 [0, 5, 1, 8]
 = (((0 - 8) - 1) - 5) - 0
 = -14
 
+(c)
+miFoldl (-) 0 [0, 5]
+= foldr (\va fb vb -> fb ((-) vb va)) (\vb -> vb) [0, 5] 0
+= (\va fb vb -> fb ((-) vb va)) 0 (foldr (\va fb vb -> fb ((-) vb va)) (\vb -> vb) [5]) 0
+= (\va fb vb -> fb ((-) vb va)) 0 ((\va fb vb -> fb ((-) vb va)) 5 (foldr (\va fb vb -> fb ((-) vb va)) (\vb -> vb) [])) 0
+= (\va fb vb -> fb ((-) vb va)) 0 ((\va fb vb -> fb ((-) vb va)) 5 (\vb -> vb)) 0
+= (\fb vb -> fb ((-) vb 0)) ((\va fb vb -> fb ((-) vb va)) 5 (\vb -> vb)) 0
+= (\vb -> ((\va fb vb -> fb ((-) vb va)) 5 (\vb -> vb)) ((-) vb 0)) 0
+= ((\va fb vb -> fb ((-) vb va)) 5 (\vb -> vb)) ((-) 0 0)
+= ((\fb vb -> fb ((-) vb 5)) (\vb -> vb)) ((-) 0 0)
+= (\vb -> (\vb -> vb) ((-) vb 5)) ((-) 0 0)
+= (\vb -> vb) ((-) ((-) 0 0) 5)
+= (-) ((-) 0 0) 5
+= (0 - 0) - 5
+= -5
+
 (d) Los incisos (a) y (b) dan distinto porque el operador (-) NO es asociativo. En general sabemos que
 foldl y foldr en esencia asocian a la izquierda y a la derecha, respectivamente, y para una operación
 con un operador no asociativo, como lo es el (-), no necesariamente se cumple que asociar por la
