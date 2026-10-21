@@ -17,3 +17,14 @@ foldl (-) 0 [0, 5, 1, 8]
 = (((foldl (-) 0 [] - 8) - 1) - 5) - 0
 = (((0 - 8) - 1) - 5) - 0
 = -14
+
+(d) Los incisos (a) y (b) dan distinto porque el operador (-) NO es asociativo. En general sabemos que
+foldl y foldr en esencia asocian a la izquierda y a la derecha, respectivamente, y para una operación
+con un operador no asociativo, como lo es el (-), no necesariamente se cumple que asociar por la
+izquierda sea igual a asociar por la derecha.
+
+Para que se cumpla que foldr op z xs == foldl op z xs, op debe ser un operador asociativo  y z debe ser
+el elemento neutro de dicho operador, pues, se cumple para n>=0 que
+
+Si '[+]' es un operador asociativo cualquiera, y 'e' es su elemento neutro:
+((((e[+]a1)[+]a2)[+]a3)...[+]an) = (a1[+](a2[+](a3[+]...(an[+]e))))
