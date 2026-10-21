@@ -64,6 +64,11 @@ mayorYMenor (h:tl)
         maxNum = fst values
         minNum = snd values
 
+-- Auxiliar: fixPair
+fixPair :: Maybe (a, a) -> (a, a)
+fixPair (Just p)  = p
+fixPair Nothing   = undefined
+
 
 -- A3
 leerHora :: String -> Either String (Int, Int)
@@ -106,6 +111,13 @@ promedioSobreUmbral num lst
   | otherwise     = Just ((fst pair) / (snd pair))
   where pair = foldl (acumTuple num) (0.0, 0.0) lst
 
+-- Auxiliar: acumTuple
+acumTuple :: Double -> (Double, Double) -> Double -> (Double, Double)
+acumTuple cond (sum, n) num
+  | num > cond  = (sum + num, n + 1)
+  | otherwise   = (sum, n)
+
+
 -- B2
 movimientosCaballo :: (Int, Int) -> [(Int, Int)]
 movimientosCaballo (r, c)
@@ -126,7 +138,7 @@ enDosSaltos = undefined
 
 -- B3
 miMap :: (a -> b) -> [a] -> [b]
-miMap f lst = foldr (auxB3 f) [] lst
+miMap f lst = foldr (mapConcatVal f) [] lst
 
 miFilter :: (a -> Bool) -> [a] -> [a]
 miFilter = undefined
@@ -134,29 +146,17 @@ miFilter = undefined
 miFoldl :: (b -> a -> b) -> b -> [a] -> b
 miFoldl = undefined
 
+-- Auxiliar: mapConcatVal
+mapConcatVal :: (a -> b) -> a -> [b] -> [b]
+mapConcatVal f val lst = f val : lst
+
+
 -- =====================================================================
 -- Funciones Auxiliares
+-- Aquellas compartidas en dos o mas funciones
 -- =====================================================================
 
 -- esVacio
 esVacio :: [a] -> Bool
 esVacio []  = True
 esVacio _   = False
-
-
--- fixPair
-fixPair :: Maybe (a, a) -> (a, a)
-fixPair (Just p)  = p
-fixPair Nothing   = undefined
-
-
--- acumTuple
-acumTuple :: Double -> (Double, Double) -> Double -> (Double, Double)
-acumTuple cond (sum, n) num
-  | num > cond  = (sum + num, n + 1)
-  | otherwise   = (sum, n)
-
-
--- auxB3
-auxB3 :: (a -> b) -> a -> [b] -> [b]
-auxB3 f val lst = f val : lst
