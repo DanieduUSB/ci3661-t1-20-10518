@@ -36,15 +36,10 @@ import Data.Char (isAlphaNum, isDigit, toLower, digitToInt)
 esPalindromo :: String -> Bool
 esPalindromo [] = True
 esPalindromo (h:word)
-  -- Si el primer caracter no es un caracter alfanumérico, se ignora y se compara el resto del String
   | not (isAlphaNum h)                    = esPalindromo word
-  -- Si el resto del String es vacío, 'h' es un caracter central, por lo tanto, es un palíndromo
   | esVacio word                          = True
-  -- Si el último caracter no es un caracter alfanumérico, se ignora y se compara el resto del String
   | not (isAlphaNum (last word))          = esPalindromo (h : init word)
-  -- Si el primer y último caracter son iguales, se evalúan los caracteres en el medio
   | (toLower h) == (toLower (last word))  = esPalindromo (init word)
-  -- En caso contrario, no es palíndromo
   | otherwise                             = False
   
 
