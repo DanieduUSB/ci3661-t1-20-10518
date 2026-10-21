@@ -108,9 +108,9 @@ promedioSobreUmbral num lst
 
 -- Auxiliar: acumTuple
 acumTuple :: Double -> (Double, Double) -> Double -> (Double, Double)
-acumTuple cond (sum, n) num
-  | num > cond  = (sum + num, n + 1)
-  | otherwise   = (sum, n)
+acumTuple cond (acum, n) num
+  | num > cond  = (acum + num, n + 1)
+  | otherwise   = (acum, n)
 
 
 -- B2
