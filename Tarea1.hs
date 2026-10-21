@@ -108,11 +108,21 @@ promedioSobreUmbral num lst
   | snd pair == 0 = Nothing
   | otherwise     = Just ((fst pair) / (snd pair))
   where pair = foldl (acumTuple num) (0.0, 0.0) lst
--- Queda implementar que solo tome los mayores a 'num' para el promedio
 
 -- B2
 movimientosCaballo :: (Int, Int) -> [(Int, Int)]
-movimientosCaballo = undefined
+movimientosCaballo (r, c)
+  | r < 1     = []
+  | r > 8     = []
+  | c < 1     = []
+  | c > 8     = []
+  | otherwise = [(r+i, c+j) | i <- [-2, -1, 1, 2],
+                              j <- [-2, -1, 1, 2],
+                              abs(i) /= abs(j),
+                              r+i > 0,
+                              r+i < 9,
+                              c+j > 0,
+                              c+j < 9]
 
 enDosSaltos :: (Int, Int) -> Int
 enDosSaltos = undefined
