@@ -111,8 +111,8 @@ duracion t1 t2 =
 -- B1
 promedioSobreUmbral :: Double -> [Double] -> Maybe Double
 promedioSobreUmbral num lst
-  | snd pair == 0 = Nothing
-  | otherwise     = Just ((fst pair) / (snd pair))
+  | snd pair == 0   = Nothing
+  | otherwise       = Just ((fst pair) / (snd pair))
   where pair = foldl (acumTuple num) (0.0, 0.0) lst
 
 -- Auxiliar: acumTuple
@@ -147,8 +147,8 @@ fullList p = (foldr (\q lst -> (movimientosCaballo q) ++ lst) [] (movimientosCab
 -- Auxiliar: filterElem
 filterElem :: (Int, Int) -> [(Int, Int)] -> [(Int, Int)]
 filterElem p lst
-  | elem p lst = lst
-  | otherwise = p : lst
+  | elem p lst  = lst
+  | otherwise   = p : lst
 
 
 -- B3
