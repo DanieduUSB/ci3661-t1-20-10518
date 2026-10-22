@@ -131,16 +131,16 @@ movimientosCaballo (r, c)
 enDosSaltos :: (Int, Int) -> Int
 enDosSaltos p = length (foldr filterElem [] (fullList p))
 
+-- Auxiliar: fullList
 fullList :: (Int, Int) -> [(Int, Int)]
 fullList p = (foldr (\q lst -> (movimientosCaballo q) ++ lst) [] (movimientosCaballo p))
 
+-- Auxiliar: filterElem
 filterElem :: (Int, Int) -> [(Int, Int)] -> [(Int, Int)]
 filterElem p lst
   | elem p lst = lst
   | otherwise = p : lst
 
-test :: (Int, Int) -> [(Int, Int)]
-test p = foldr filterElem [] (fullList p)
 
 -- B3
 miMap :: (a -> b) -> [a] -> [b]
