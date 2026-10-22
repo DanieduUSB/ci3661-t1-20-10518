@@ -5,6 +5,15 @@
 --  Carnet: 20-10518
 --
 --  Declaración de uso de herramientas de IA (obligatoria, ver enunciado):
+--    Gemini: Mayormente para preguntas puntuales relacionadas a conceptos
+--            que no había entendido a la primera (Y se aplica mas a
+--            preguntas de la clase que uso de IA en el proyecto).
+--            Para miFoldl en B3 lo usé para conseguir una idea, usando
+--            un prompt en el que busqué conseguir una relación entre
+--            asociación por la derecha y por la izquierda en operadores
+--            no asociativos, asi como para corridas en frío sobre esta
+--            función y sobre foldl (Distintas a las solicitadas en el
+--            enunciado de la actividad 7 claro está)
 --
 -- =====================================================================
 --  No cambies el nombre del módulo ni la lista de exportación, ni las
